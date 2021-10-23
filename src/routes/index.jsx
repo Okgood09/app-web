@@ -1,59 +1,45 @@
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
-import Layout from '../components/layout'
-import Contact from '../components/pages/contact'
-import Counter from '../components/pages/counter'
-import Home from '../components/pages/home'
+import { Suspense } from 'react'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
-export const MAP_ROUTE = [
+import { LinearProgress } from '@mui/material'
+
+import Layout from '../components/layout/layout'
+
+const MAP_ROUTE = [
+    { path: '/', exact: true, redirect: '/app' },
     {
-        path: "/counter",
-        component: Counter
-    },
-    {
-        path: "/layout",
+        path: '/app',
         component: Layout,
         routes: [
             {
-                path: "/layout/home",
-                component: Home
-            },
-            {
-                path: "/layout/contact",
-                component: Contact
-            },
-            {
-                path: "/layout/counter",
-                component: Counter
-            },
+                path: '/app/home',
+            }
         ]
     }
 ]
 
-
 export default function RoutesConfig() {
-    console.log('layout')
     return <BrowserRouter>
-        <ul>
-            <li>
-                <Link to="/layout">Layout</Link>
-            </li>
-        </ul>
-        <Switch>
-            {
-                MAP_ROUTE.map((route, index) => {
-                    return <RouteWithSubRoutes key={index} {...route} />
-                })
-            }
-        </Switch>
+        <Suspense fallback={<LinearProgress />}>
+            <Switch>
+                {
+                    MAP_ROUTE.map((route, index) => {
+                        return <RouteWithSubRoutes key={index} {...route} />
+                    })
+                }
+            </Switch>
+        </Suspense>
     </BrowserRouter>
 }
 
 export function RouteWithSubRoutes(route) {
-    console.log('RouteWithSubRoutes')
     return <Route
         path={route.path}
         exact={route.exact}
         render={(props) => {
+            if (route.redirect) {
+                return <Redirect to={{ pathname: `${route.redirect}`, state: `${props.location}` }} />
+            }
             return <route.component {...props} routes={route.routes} />
         }}
     />

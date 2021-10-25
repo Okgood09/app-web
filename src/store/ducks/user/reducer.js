@@ -3,7 +3,7 @@ import { UserTypes } from './types'
 
 export const INITIAL_STATE = {
     create: {
-        user: new User({}),
+        user: new User(),
         loading: false,
         success: false,
         error: false

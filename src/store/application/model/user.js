@@ -1,17 +1,38 @@
-export class User {
+import { Account } from './account'
 
-    constructor(
-        id,
-        created_at,
-        name,
-        email,
-        password
-    ) {
-        this.id = id
-        this.created_at = created_at
-        this.name = name
-        this.email = email
-        this.password = password
+export class User extends Account {
+
+    get id() {
+        return this._id
+    }
+
+    set id(value) {
+        this._id = value
+    }
+
+    get name() {
+        return this._name
+    }
+
+    set name(value) {
+        this._name = value
+    }
+
+    fromJSON(json) {
+        super.fromJSON(json)
+
+        if (json.id !== undefined) this.id = json.id
+        if (json.name !== undefined) this.name = json.name
+
+        return this
+    }
+
+    toJSON() {
+        return JSON.parse(JSON.stringify({
+            ...super.toJSON(),
+            id: this.id || undefined,
+            name: this.name || undefined
+        }))
     }
 
 }

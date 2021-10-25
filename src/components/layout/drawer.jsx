@@ -1,17 +1,45 @@
-import { Box, Drawer, List, ListItem, ListItemText } from '@mui/material'
+import { Box, Drawer, List, ListItem, ListItemText, SvgIcon } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { useHistory } from 'react-router-dom'
+
+import { ReactComponent as LogoBugReport } from '../../assets/images/logo/BugReportLogo.svg'
+import { theme } from '../../assets/styles/theme'
+import { drawerWidth } from '../../store/ducks/layout/types'
+
+const useStyles = makeStyles({
+    svgIcon: {
+        fontSize: 150,
+        cursor: 'pointer'
+    },
+    navActive: {
+        background: theme.palette.primary.main
+    }
+})
 
 export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
 
-    const drawerWidth = 240
+    const history = useHistory()
+
+    const classes = useStyles()
 
     const drawer = (
-        <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                <ListItem button key={index}>
-                    <ListItemText primary={text} />
+        <Box component="div">
+            <Box display="flex" justifyContent="center">
+                <SvgIcon
+                    className={classes.svgIcon}
+                    component={LogoBugReport}
+                    viewBox="0 0 224 90"
+                    onClick={() => history.push('/')} />
+            </Box>
+            <List>
+                <ListItem to="/app" button={true}>
+                    <ListItemText primary="Página inicial" />
                 </ListItem>
-            ))}
-        </List>
+                <ListItem to="/app/users" button={true}>
+                    <ListItemText primary="Usuários" />
+                </ListItem>
+            </List>
+        </Box>
     )
 
     const container = window !== undefined

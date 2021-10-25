@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { LinearProgress } from '@mui/material'
 
 import Layout from '../components/layout/layout'
+import ListUser from '../containers/users/list'
 
 const MAP_ROUTE = [
     { path: '/', exact: true, redirect: '/app' },
@@ -12,7 +13,8 @@ const MAP_ROUTE = [
         component: Layout,
         routes: [
             {
-                path: '/app/home',
+                path: '/app/users',
+                component: ListUser
             }
         ]
     }

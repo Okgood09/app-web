@@ -1,6 +1,10 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+
 import { Box, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+
 import { animation } from '../../assets/styles/theme'
 
 const useStyles = makeStyles({
@@ -9,11 +13,15 @@ const useStyles = makeStyles({
 
 export default function ListUser() {
 
+    const { t } = useTranslation()
+
+    const dispatch = useDispatch()
+
     const classes = useStyles()
 
     return <Box className={classes.fadeIn1}>
         <Paper>
-            Testando...
+            {t('APP')}
         </Paper>
     </Box>
 }

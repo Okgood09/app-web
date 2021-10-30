@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Drawer, List, ListItem, ListItemText, SvgIcon } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 
 import { ReactComponent as LogoBugReport } from '../../assets/images/logo/BugReportLogo.svg'
@@ -23,6 +24,8 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
 
     const classes = useStyles()
 
+    const { t } = useTranslation()
+
     const drawer = (
         <Box component="div">
             <Box display="flex" justifyContent="center">
@@ -34,10 +37,10 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
             </Box>
             <List>
                 <ListItem to="/app" button={true}>
-                    <ListItemText primary="Página inicial" />
+                    <ListItemText primary={t('DRAWER.HOME')} />
                 </ListItem>
                 <ListItem to="/app/users" button={true}>
-                    <ListItemText primary="Usuários" />
+                    <ListItemText primary={t('DRAWER.USERS')} onClick={() => history.push('/app/users')} />
                 </ListItem>
             </List>
         </Box>

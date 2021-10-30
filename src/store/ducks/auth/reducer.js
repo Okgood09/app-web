@@ -1,9 +1,9 @@
-import { User } from '../../application/model/user.model'
-import { UserTypes } from './types'
+import { AuthTypes } from './types'
 
 export const INITIAL_STATE = {
-    create: {
-        user: new User(),
+    credentials: {
+        email: '',
+        password: '',
         loading: false,
         success: false,
         error: false
@@ -12,33 +12,37 @@ export const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case UserTypes.FIND_REQUEST:
+
+        case AuthTypes.LOGIN_RESET:
             return {
                 ...state,
-                create: {
-                    ...state.create,
+                credentials: INITIAL_STATE.credentials
+            }
+
+        case AuthTypes.LOGIN_REQUEST:
+            return {
+                ...state,
+                creadentials: {
+                    ...state.credentials,
                     loading: true
                 }
             }
 
-        case UserTypes.FIND_SUCCESS: {
-            const { user } = action.payload
+        case AuthTypes.LOGIN_SUCCESS:
             return {
                 ...state,
-                create: {
-                    ...state.create,
-                    user,
+                credentials: {
+                    ...state.credentials,
                     loading: false,
                     success: true
                 }
             }
-        }
 
-        case UserTypes.FIND_FAILURE:
+        case AuthTypes.LOGIN_FAILURE:
             return {
                 ...state,
-                create: {
-                    ...state.create,
+                credentials: {
+                    ...state.credentials,
                     loading: false,
                     error: true
                 }

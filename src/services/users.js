@@ -1,4 +1,4 @@
-import { User } from '../store/application/model/user'
+import { User } from '../store/application/model/user.model'
 import axiosInstance from './axios'
 
 async function find(id) {

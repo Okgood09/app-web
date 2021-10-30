@@ -5,9 +5,11 @@ import { LinearProgress } from '@mui/material'
 
 import Layout from '../components/layout/layout'
 import ListUser from '../containers/users/list'
+import Login from '../containers/auth/login'
 
 const MAP_ROUTE = [
     { path: '/', exact: true, redirect: '/app' },
+    { path: '/authenticate', exact: true, component: Login },
     {
         path: '/app',
         component: Layout,

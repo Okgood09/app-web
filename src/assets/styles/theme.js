@@ -1,15 +1,17 @@
 import { createTheme } from '@mui/material/styles'
 
 /* CSS HEX */
+
 /*
---light-cornflower-blue: #8ecae6ff;
---blue-green: #219ebcff;
---prussian-blue: #023047ff;
---honey-yellow: #ffb703ff;
---orange: #fb8500ff; 
-*/
+ * --light-cornflower-blue: #8ecae6ff;
+ * --blue-green: #219ebcff;
+ * --prussian-blue: #023047ff;
+ * --honey-yellow: #ffb703ff;
+ * --orange: #fb8500ff; 
+ */
 
 export const theme = createTheme({
+    spacing: 10,
     palette: {
         primary: {
             main: '#165C73'
@@ -43,15 +45,15 @@ export const animation = {
         }
     },
     fadeIn1: {
-        animation: `$fadeIn .6s`
+        animation: 'fadeIn .6s'
     },
     fadeIn2: {
-        animation: `$fadeIn 1s`
+        animation: 'fadeIn 1s'
     },
     fadeIn3: {
-        animation: `$fadeIn 1.5s`
+        animation: 'fadeIn 1.5s'
     },
     fadeInContent: {
-        animation: `$fadeInContent 1.7s`
+        animation: 'fadeInContent 1.7s'
     }
 }

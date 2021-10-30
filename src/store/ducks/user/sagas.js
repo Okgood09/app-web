@@ -13,7 +13,7 @@ function* find(action) {
     }
 }
 
-export default function* subjectSaga() {
+export default function* userSaga() {
     return yield all([
         takeLatest(UserTypes.FIND_REQUEST, find)
     ])

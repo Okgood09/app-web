@@ -1,4 +1,4 @@
-export class Account {
+export class Access {
 
     get email() {
         return this._email
@@ -26,10 +26,10 @@ export class Account {
     }
 
     toJSON() {
-        return JSON.parse(JSON.stringify({
+        return {
             email: this.email || undefined,
             password: this.password || undefined
-        }))
+        }
     }
 
 }

@@ -1,9 +1,6 @@
 import { LayoutTypes } from './types'
 
 export const INITIAL_STATE = {
-    language: {
-        lng: localStorage.getItem('language')
-    },
     drawer: {
         enable: false
     },
@@ -17,17 +14,6 @@ export const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-
-        case LayoutTypes.CHANGE_LANGUAGE: {
-            const { language } = action.payload
-            return {
-                ...state,
-                language: {
-                    ...state.language,
-                    lng: language
-                }
-            }
-        }
 
         case LayoutTypes.ENABLE_DRAWER: {
             const { enable } = action.payload

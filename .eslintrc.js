@@ -24,6 +24,8 @@ module.exports = {
         'semi': ['error', 'never'],
         'arrow-body-style': ['error', 'as-needed'],
         'max-lines': ['error', 150],
-        'multiline-comment-style': ['error', 'starred-block']
+        'no-irregular-whitespace': 'error',
+        'eqeqeq': ['error', 'always'],
+        'no-empty-function': 'error'
     }
 }

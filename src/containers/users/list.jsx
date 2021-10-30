@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { Box, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -12,13 +11,11 @@ const useStyles = makeStyles({
 
 export default function ListUser() {
 
-    const { t } = useTranslation()
-
     const classes = useStyles()
 
     return <Box className={classes.fadeIn1}>
         <Paper>
-            {t('APP')}
+            APP
         </Paper>
     </Box>
 }

@@ -14,7 +14,7 @@ export const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case LayoutTypes.ENABLE_DRAWER:
+        case LayoutTypes.ENABLE_DRAWER: {
             const { enable } = action.payload
             return {
                 ...state,
@@ -23,8 +23,9 @@ export default function reducer(state = INITIAL_STATE, action) {
                     enable
                 }
             }
+        }
 
-        case LayoutTypes.ENABLE_SNACKBAR:
+        case LayoutTypes.ENABLE_SNACKBAR: {
             const { enableSnackbar, severity, title, message } = action.payload
             return {
                 ...state,
@@ -36,6 +37,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                     message
                 }
             }
+        }
 
         default:
             return state

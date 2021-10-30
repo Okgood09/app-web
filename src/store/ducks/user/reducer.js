@@ -21,7 +21,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                 }
             }
 
-        case UserTypes.FIND_SUCCESS:
+        case UserTypes.FIND_SUCCESS: {
             const { user } = action.payload
             return {
                 ...state,
@@ -32,6 +32,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                     success: true
                 }
             }
+        }
 
         case UserTypes.FIND_FAILURE:
             return {

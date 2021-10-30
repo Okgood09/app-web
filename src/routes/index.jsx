@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import { LinearProgress } from '@mui/material'
@@ -25,9 +25,7 @@ export default function RoutesConfig() {
         <Suspense fallback={<LinearProgress />}>
             <Switch>
                 {
-                    MAP_ROUTE.map((route, index) => {
-                        return <RouteWithSubRoutes key={index} {...route} />
-                    })
+                    MAP_ROUTE.map((route, index) => <RouteWithSubRoutes key={index} {...route} />)
                 }
             </Switch>
         </Suspense>

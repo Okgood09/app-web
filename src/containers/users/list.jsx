@@ -1,3 +1,4 @@
+import React from 'react'
 import { Box, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { animation } from '../../assets/styles/theme'

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { Box, Paper } from '@mui/material'
@@ -14,8 +13,6 @@ const useStyles = makeStyles({
 export default function ListUser() {
 
     const { t } = useTranslation()
-
-    const dispatch = useDispatch()
 
     const classes = useStyles()
 

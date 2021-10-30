@@ -1,11 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-<<<<<<< HEAD
-import { CssBaseline } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
-=======
 import './assets/styles/global.css'
->>>>>>> 8828cbc1710bebab7063452ae985a7fd567fcbf3
 
 import store from './store'
 import * as PackageJson from '../package.json'

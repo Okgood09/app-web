@@ -1,5 +1,5 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { Suspense } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { Switch } from 'react-router-dom'
 
 import { Alert, Box, Snackbar, Typography } from '@mui/material'
@@ -10,7 +10,6 @@ import Drawer from './drawer'
 import { enableDrawer, enableSnackbar } from '../../store/ducks/layout/actions'
 
 const LayoutComponent = ({ routes }) => {
-
     const dispatch = useDispatch()
     const layout = useSelector((state) => state.layout)
 
@@ -48,14 +47,18 @@ const LayoutComponent = ({ routes }) => {
             sx={{
                 flexGrow: 1,
                 p: 1,
-                mt: 8,
+                mt: 5,
                 width: { md: `calc(100% - ${drawerWidth}px)` }
             }}>
-            <Switch>
-                {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
-            </Switch>
+            <Suspense>
+                <Switch>
+                    {
+                        routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
+                    }
+                </Switch>
+            </Suspense>
         </Box>
     </Box>
 }
 
-export default LayoutComponent
+export default connect()(LayoutComponent)

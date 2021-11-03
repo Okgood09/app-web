@@ -27,33 +27,33 @@ export const theme = createTheme({
 
 export const animation = {
     '@keyframes fadeIn': {
-        'from': {
+        from: {
             opacity: '0',
             transform: 'translate(0, 15px)'
         },
-        'to': {
+        to: {
             opacity: '1',
             transform: 'translate(0, 0)'
         }
     },
     '@keyframes fadeInContent': {
-        'from': {
+        from: {
             opacity: '0'
         },
-        'to': {
+        to: {
             opacity: '1'
         }
     },
     fadeIn1: {
-        animation: 'fadeIn .6s'
+        animation: '$fadeIn .6s'
     },
     fadeIn2: {
-        animation: 'fadeIn 1s'
+        animation: '$fadeIn 1s'
     },
     fadeIn3: {
-        animation: 'fadeIn 1.5s'
+        animation: '$fadeIn 1.5s'
     },
     fadeInContent: {
-        animation: 'fadeInContent 1.7s'
+        animation: '$fadeInContent 1.7s'
     }
 }

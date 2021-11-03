@@ -4,10 +4,14 @@ import { default as axios } from 'axios'
 import store from '../store'
 import { enableSnackbar } from '../store/ducks/layout/actions'
 import { SnackbarType } from '../store/ducks/layout/types'
+import { LocalStorageService } from './localStorage.service'
+
+const API_GATEWAY = `${process.env.REACT_APP_API_GATEWAY}`
+console.log('API_GATEWAY', API_GATEWAY)
 
 const axiosInstance = axios.create({
     // TODO: URL_BASE
-    baseURL: process.env.REACT_APP_API_GATEWAY,
+    baseURL: API_GATEWAY,
     httpsAgent: new Agent({ rejectUnauthorized: false })
 })
 
@@ -15,7 +19,7 @@ axiosInstance
     .interceptors
     .request
     .use((request) => {
-        const token = localStorage.getItem('Authorization')
+        const token = LocalStorageService.getItem('access_token')
         if (token) {
             request.headers.Authorization = `Bearer ${token}`
         }
@@ -31,8 +35,14 @@ axiosInstance
         let message = ''
         switch (error.response.status) {
             case 400:
-                title = 'DADOS INCORRETOS'
-                message = 'Verifique os dados informados e tente novamente.'
+                if (error.response.config.url === '/v1/auth/login') {
+                    title = 'Credenciais inválidas'
+                    message = 'Verifique os dados de acesso fornecidos.'
+                } else {
+                    title = 'DADOS INCORRETOS'
+                    message = 'Verifique os dados informados e tente novamente.'
+                }
+
                 break
             case 401:
                 title = 'NÃO AUTENTICADO'
@@ -43,8 +53,13 @@ axiosInstance
                 message = 'Usuário não possui permissão para acessar o recurso solicitado.'
                 break
             case 404:
-                title = 'NÃO ENCONTRADO'
-                message = 'Recurso solicitado encontra-se indisponível ou inexistente.'
+                if (error.response.config.url === '/v1/auth/login') {
+                    title = 'Credenciais inválidas'
+                    message = 'Verifique os dados de acesso fornecidos.'
+                } else {
+                    title = 'NÃO ENCONTRADO'
+                    message = 'Recurso solicitado encontra-se indisponível ou inexistente.'
+                }
                 break
             case 409:
                 title = 'DADOS DUPLICADOS'

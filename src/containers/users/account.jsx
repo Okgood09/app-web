@@ -10,15 +10,15 @@ const useStyles = makeStyles({
     ...animation
 })
 
-const ListUserComponent = () => {
+const AccountComponent = () => {
 
     const classes = useStyles()
 
     return <Box className={classes.fadeIn1}>
         <Paper>
-            APP
+            Dados pessoais
         </Paper>
     </Box>
 }
 
-export default connect()(ListUserComponent)
+export default connect()(AccountComponent)

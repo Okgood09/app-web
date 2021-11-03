@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Helmet from 'react-helmet'
 
 import { Box, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -10,15 +11,19 @@ const useStyles = makeStyles({
     ...animation
 })
 
-const ListUserComponent = () => {
+const HomeComponent = () => {
 
     const classes = useStyles()
 
     return <Box className={classes.fadeIn1}>
+        <Helmet>
+            <title>Página inicial</title>
+        </Helmet>
+
         <Paper>
-            APP
+            Página Inicial
         </Paper>
     </Box>
 }
 
-export default connect()(ListUserComponent)
+export default connect()(HomeComponent)

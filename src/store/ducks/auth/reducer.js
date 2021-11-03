@@ -22,7 +22,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         case AuthTypes.LOGIN_REQUEST:
             return {
                 ...state,
-                creadentials: {
+                credentials: {
                     ...state.credentials,
                     loading: true
                 }

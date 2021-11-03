@@ -1,5 +1,5 @@
 import { User } from '../store/application/model/user.model'
-import axiosInstance from './axios'
+import axiosInstance from './axios.service'
 
 async function find(id) {
     const response = await axiosInstance.get(`/user/${id}`)

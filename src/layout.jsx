@@ -2,6 +2,7 @@ import React from 'react'
 
 import { createTheme, CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
+import { history } from './store'
 import './assets/styles/global.css'
 
 import Routes from './routes'
@@ -11,6 +12,6 @@ export default function LayoutMain() {
 
     return <ThemeProvider theme={createTheme(theme)}>
         <CssBaseline />
-        <Routes />
+        <Routes history={history} />
     </ThemeProvider>
 }

@@ -1,5 +1,5 @@
 import { all, put, takeLatest } from 'redux-saga/effects'
-import UserService from '../../../services/users'
+import UserService from '../../../services/users.service'
 import { findFailure, findSuccess } from './actions'
 import { UserTypes } from './types'
 

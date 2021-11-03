@@ -1,14 +1,17 @@
 import React from 'react'
 import { useFormik } from 'formik'
-import { useDispatch } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
+import clsx from 'clsx'
+import Helmet from 'react-helmet'
 
-import { Box, Button, Paper, SvgIcon, TextField } from '@mui/material'
+import { Alert, Box, Button, Link, Paper, Snackbar, SvgIcon, TextField, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import { ReactComponent as LogoBugReport } from '../../assets/images/logo/BugReportLogo.svg'
 import { animation, theme } from '../../assets/styles/theme'
 import { loginRequest } from '../../store/ducks/auth/actions'
 import { ValidateAccess } from '../../store/application/validator/access.validator'
+import { enableSnackbar } from '../../store/ducks/layout/actions'
 
 const useStyles = makeStyles({
     ...animation,
@@ -20,7 +23,7 @@ const useStyles = makeStyles({
         height: '100vh'
     },
     boxPaper: {
-        padding: theme.spacing(1),
+        padding: theme.spacing(2),
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -33,12 +36,16 @@ const useStyles = makeStyles({
     },
     textField: {
         margin: `${theme.spacing(3)} 0px`
+    },
+    linkForgot: {
+        paddingTop: theme.spacing(3)
     }
 })
 
-export default function LoginComponent() {
+const LoginComponent = () => {
 
     const dispatch = useDispatch()
+    const layout = useSelector((state) => state.layout)
 
     const classes = useStyles()
 
@@ -50,11 +57,35 @@ export default function LoginComponent() {
     })
 
     return <Box className={classes.boxScreen}>
-        <Paper className={classes.boxPaper}>
+        <Helmet>
+            <title>Autenticação</title>
+        </Helmet>
+
+        <Snackbar
+            id="snackbar-open"
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={layout.snackbar.enableSnackbar}
+            autoHideDuration={5000}
+            onClose={() => dispatch(enableSnackbar(!layout.snackbar.enableSnackbar))}>
+            <Alert
+                id="alert-message"
+                variant="filled"
+                severity={layout.snackbar.severity}
+                sx={{ maxWidth: '100%' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Typography>{layout.snackbar.title}</Typography >
+                    <Typography variant="caption">
+                        {layout.snackbar.message}
+                    </Typography >
+                </Box>
+            </Alert>
+        </Snackbar>
+
+        <Paper className={clsx(classes.fadeIn1, classes.boxPaper)}>
             <SvgIcon
                 style={{ fontSize: 150 }}
                 component={LogoBugReport}
-                viewBox="0 0 1384 553" />
+                viewBox="0 0 220 88" />
             <Box className={classes.boxContent}>
                 <form onSubmit={formik.handleSubmit}>
                     <Box className={classes.textField}>
@@ -97,6 +128,9 @@ export default function LoginComponent() {
                     </Button>
                 </form>
             </Box>
+            <Link className={classes.linkForgot} href="/authenticate">Esqueci minha senha</Link>
         </Paper>
     </Box >
 }
+
+export default connect()(LoginComponent)

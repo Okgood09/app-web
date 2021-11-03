@@ -1,8 +1,9 @@
-import React from 'react'
-import { Box, Drawer, List, ListItem, ListItemText, SvgIcon } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
+import { Home as HomeIcon } from '@material-ui/icons'
 import { makeStyles } from '@mui/styles'
-import { useHistory } from 'react-router-dom'
 
+import { history } from '../../store'
 import { ReactComponent as LogoBugReport } from '../../assets/images/logo/BugReportLogo.svg'
 import { theme } from '../../assets/styles/theme'
 import { drawerWidth } from '../../store/ducks/layout/types'
@@ -19,9 +20,13 @@ const useStyles = makeStyles({
 
 export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
 
-    const history = useHistory()
+    const [selectedIndex, setSelectedIndex] = useState(1)
 
     const classes = useStyles()
+
+    const handleListItemClick = (event, index) => {
+        setSelectedIndex(index)
+    }
 
     const drawer = (
         <Box component="div">
@@ -33,12 +38,27 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
                     onClick={() => history.push('/')} />
             </Box>
             <List>
-                <ListItem to="/app" button={true}>
+                <ListItemButton
+                    id="nav-home"
+                    selected={selectedIndex === 1}
+                    onClick={(e) => {
+                        handleListItemClick(e, 1)
+                        history.push('/app/home')
+                    }}>
+                    <ListItemIcon>
+                        <HomeIcon />
+                    </ListItemIcon>
                     <ListItemText primary="Página inicial" />
-                </ListItem>
-                <ListItem to="/app/users" button={true}>
-                    <ListItemText primary="Usuários" onClick={() => history.push('/app/users')} />
-                </ListItem>
+                </ListItemButton>
+                <ListItemButton
+                    id="nav-users"
+                    selected={selectedIndex === 2}
+                    onClick={(e) => {
+                        handleListItemClick(e, 2)
+                        history.push('/app/users')
+                    }}>
+                    <ListItemText primary="Usuários" />
+                </ListItemButton>
             </List>
         </Box>
     )

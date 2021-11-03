@@ -7,7 +7,6 @@ import { SnackbarType } from '../store/ducks/layout/types'
 import { LocalStorageService } from './localStorage.service'
 
 const API_GATEWAY = `${process.env.REACT_APP_API_GATEWAY}`
-console.log('API_GATEWAY', API_GATEWAY)
 
 const axiosInstance = axios.create({
     // TODO: URL_BASE

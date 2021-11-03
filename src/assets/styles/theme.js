@@ -20,7 +20,7 @@ export const theme = createTheme({
             main: '#50BB98'
         },
         background: {
-            default: '#F2F2F2'
+            default: '#e6e6e6'
         }
     }
 })

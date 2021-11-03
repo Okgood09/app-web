@@ -50,13 +50,18 @@ const LayoutComponent = ({ routes }) => {
                 mt: 5,
                 width: { md: `calc(100% - ${drawerWidth}px)` }
             }}>
-            <Suspense>
-                <Switch>
-                    {
-                        routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
-                    }
-                </Switch>
-            </Suspense>
+            <Box sx={{
+                maxWidth: 1106,
+                margin: '0 auto'
+            }}>
+                <Suspense>
+                    <Switch>
+                        {
+                            routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
+                        }
+                    </Switch>
+                </Suspense>
+            </Box>
         </Box>
     </Box>
 }

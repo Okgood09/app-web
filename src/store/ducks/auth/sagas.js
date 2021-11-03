@@ -9,7 +9,6 @@ function* authenticate(action) {
     const { credentials } = action.payload
     try {
         const token = yield AuthService.authenticate(credentials)
-        console.log('token saga', token)
         if (token) yield put(history.push('/app'))
         yield put(loginSuccess())
     } catch (error) {

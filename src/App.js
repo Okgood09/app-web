@@ -16,7 +16,7 @@ const App = () => {
     const style3 = `${commonStyle};font-size: 8px;color: #555;`
 
     console.log(
-        `%cApplication%cby Developer\n%cv${VERSION}`,
+        `%cBug Report%cby Diego Muniz\n%cv${VERSION}`,
         style1,
         style2,
         style3

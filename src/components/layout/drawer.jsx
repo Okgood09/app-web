@@ -35,7 +35,7 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
                     className={classes.svgIcon}
                     component={LogoBugReport}
                     viewBox="0 0 224 90"
-                    onClick={() => history.push('/')} />
+                    onClick={() => history.push('/app')} />
             </Box>
             <List>
                 <ListItemButton

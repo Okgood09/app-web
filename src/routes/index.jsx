@@ -1,19 +1,21 @@
-import React, { Suspense } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 
 import { LinearProgress } from '@mui/material'
 
 import AuthService from '../services/auth.service'
-import Layout from '../components/layout/layout'
-import Home from '../containers/home/home'
-import Login from '../containers/auth/login'
-import ListUser from '../containers/users/list'
-import Account from '../containers/users/account'
+
+// Components lazy
+const Layout = lazy(() => import('../components/layout/layout'))
+const Home = lazy(() => import('../containers/home/home'))
+// Components imports
+const BugReport = lazy(() => import('../containers/pages/bugReport'))
+const ListUser = lazy(() => import('../containers/users/list'))
+const Account = lazy(() => import('../containers/users/account'))
 
 const MAP_ROUTE = [
-    { path: '/', exact: true, redirect: '/app/home' },
-    { path: '/authenticate', exact: true, component: Login },
+    { path: '/', exact: true, component: BugReport, redirect: '/app' },
     {
         path: '/app',
         private: true,
@@ -44,16 +46,18 @@ export const RouteWithSubRoutes = (route) => <Route
     path={route.path}
     exact={route.exact}
     render={props => {
+
+        console.log('PROPS & ROUTE', props, route)
         if (route.private && !AuthService.isAuthenticated()) {
             return <Redirect
                 to={{
-                    pathname: '/authenticate',
+                    pathname: '/',
                     state: { from: props.location }
                 }}
             />
         }
 
-        if (route.redirect) {
+        if (route.redirect && AuthService.isAuthenticated()) {
             return <Redirect to={{
                 pathname: `${route.redirect}`,
                 state: { from: props.location }
@@ -66,7 +70,7 @@ export const RouteWithSubRoutes = (route) => <Route
 
 export default function RoutesConfig({ history }) {
     return <ConnectedRouter history={history}>
-        <Suspense fallback={<LinearProgress />}>
+        <Suspense fallback={<LinearProgress sx={{ height: 8 }} />}>
             <Switch>
                 {
                     MAP_ROUTE.map((route, index) => <RouteWithSubRoutes key={index} {...route} />)

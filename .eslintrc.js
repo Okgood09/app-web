@@ -23,7 +23,6 @@ module.exports = {
         'quotes': ['error', 'single'],
         'semi': ['error', 'never'],
         'arrow-body-style': ['error', 'as-needed'],
-        'max-lines': ['error', 150],
         'no-irregular-whitespace': 'error',
         'eqeqeq': ['error', 'always'],
         'no-empty-function': 'error'

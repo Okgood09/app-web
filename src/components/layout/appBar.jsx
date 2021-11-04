@@ -89,7 +89,7 @@ function AppBarComponent({ handleDrawerToggle }) {
             <MenuItem
                 id="menu_item_logout"
                 onClick={() => {
-                    history.push('/authenticate')
+                    history.push('/')
                     LocalStorageService.logout()
                     handleClick(null)
                 }}>

@@ -21,6 +21,9 @@ export const theme = createTheme({
         },
         background: {
             default: '#e6e6e6'
+        },
+        text: {
+            primary: '#666666'
         }
     }
 })
@@ -44,6 +47,14 @@ export const animation = {
             opacity: '1'
         }
     },
+    '@keyframes suspense': {
+        from: {
+            transform: 'translate(0, 80px)'
+        },
+        to: {
+            transform: 'translate(0, 0)'
+        }
+    },
     fadeIn1: {
         animation: '$fadeIn .6s'
     },
@@ -54,6 +65,9 @@ export const animation = {
         animation: '$fadeIn 1.5s'
     },
     fadeInContent: {
-        animation: '$fadeInContent 1.7s'
+        animation: '$fadeInContent 1s'
+    },
+    suspenseIcon: {
+        animation: '$suspense 2s'
     }
 }

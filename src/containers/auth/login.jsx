@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import { connect, useDispatch, useSelector } from 'react-redux'
-import clsx from 'clsx'
 import Helmet from 'react-helmet'
 
-import { Alert, Box, Button, Link, Paper, Snackbar, SvgIcon, TextField, Typography } from '@mui/material'
+import {
+    Alert,
+    Box,
+    Button,
+    InputAdornment,
+    Link,
+    Paper,
+    Snackbar,
+    SvgIcon,
+    TextField,
+    Typography
+} from '@mui/material'
+import {
+    Visibility as VisibilityIcon,
+    VisibilityOff as VisibilityOffIcon,
+    Email as EmailIcon
+} from '@material-ui/icons'
 import { makeStyles } from '@mui/styles'
 
 import { ReactComponent as LogoBugReport } from '../../assets/images/logo/BugReportLogo.svg'
@@ -12,16 +27,10 @@ import { animation, theme } from '../../assets/styles/theme'
 import { loginRequest } from '../../store/ducks/auth/actions'
 import { ValidateAccess } from '../../store/application/validator/access.validator'
 import { enableSnackbar } from '../../store/ducks/layout/actions'
+import clsx from 'clsx'
 
 const useStyles = makeStyles({
     ...animation,
-    boxScreen: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100%',
-        height: '100vh'
-    },
     boxPaper: {
         padding: theme.spacing(2),
         display: 'flex',
@@ -39,10 +48,15 @@ const useStyles = makeStyles({
     },
     linkForgot: {
         paddingTop: theme.spacing(3)
+    },
+    iconVisibility: {
+        cursor: 'pointer'
     }
 })
 
 const LoginComponent = () => {
+
+    const [showPassword, setShowPassword] = useState(false)
 
     const dispatch = useDispatch()
     const layout = useSelector((state) => state.layout)
@@ -56,7 +70,11 @@ const LoginComponent = () => {
         onSubmit: values => dispatch(loginRequest(values))
     })
 
-    return <Box className={classes.boxScreen}>
+    function handleClickShowPassword() {
+        setShowPassword(!showPassword)
+    }
+
+    return <Box>
         <Helmet>
             <title>Autenticação</title>
         </Helmet>
@@ -81,7 +99,7 @@ const LoginComponent = () => {
             </Alert>
         </Snackbar>
 
-        <Paper className={clsx(classes.fadeIn1, classes.boxPaper)}>
+        <Paper className={clsx(classes.fadeInContent, classes.boxPaper)}>
             <SvgIcon
                 style={{ fontSize: 150 }}
                 component={LogoBugReport}
@@ -100,6 +118,11 @@ const LoginComponent = () => {
                             error={formik.touched.email && Boolean(formik.errors.email)}
                             onBlur={formik.handleBlur}
                             helperText={formik.touched.email && formik.errors.email}
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">
+                                    <EmailIcon />
+                                </InputAdornment>
+                            }}
                         />
                     </Box>
                     <Box className={classes.textField}>
@@ -107,7 +130,7 @@ const LoginComponent = () => {
                             id="input-password"
                             name="password"
                             label="Senha"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             variant="filled"
                             fullWidth={true}
                             value={formik.values.password}
@@ -115,6 +138,21 @@ const LoginComponent = () => {
                             onBlur={formik.handleBlur}
                             error={formik.touched.password && Boolean(formik.errors.password)}
                             helperText={formik.touched.password && formik.errors.password}
+                            InputProps={{
+                                endAdornment: showPassword
+                                    ? <InputAdornment position="end">
+                                        <VisibilityIcon
+                                            id="icon-visibility"
+                                            className={classes.iconVisibility}
+                                            onClick={handleClickShowPassword} />
+                                    </InputAdornment>
+                                    : <InputAdornment position="end">
+                                        <VisibilityOffIcon
+                                            id="icon-visibilityoff"
+                                            className={classes.iconVisibility}
+                                            onClick={handleClickShowPassword} />
+                                    </InputAdornment>
+                            }}
                         />
                     </Box>
                     <Button
@@ -130,7 +168,7 @@ const LoginComponent = () => {
             </Box>
             <Link className={classes.linkForgot} href="/authenticate">Esqueci minha senha</Link>
         </Paper>
-    </Box >
+    </Box>
 }
 
 export default connect()(LoginComponent)

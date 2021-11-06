@@ -55,14 +55,14 @@ export class User extends Access {
     }
 
     toJSON() {
-        return JSON.parse(JSON.stringify({
+        return {
             ...super.toJSON(),
             id: this.id || undefined,
             created_at: this.created_at || undefined,
             updated_at: this.updated_at || undefined,
             last_login: this.last_login || undefined,
             name: this.name || undefined
-        }))
+        }
     }
 
 }

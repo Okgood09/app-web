@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
+import clsx from 'clsx'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import Helmet from 'react-helmet'
 
@@ -27,7 +28,6 @@ import { animation, theme } from '../../assets/styles/theme'
 import { loginRequest } from '../../store/ducks/auth/actions'
 import { ValidateAccess } from '../../store/application/validator/access.validator'
 import { enableSnackbar } from '../../store/ducks/layout/actions'
-import clsx from 'clsx'
 
 const useStyles = makeStyles({
     ...animation,
@@ -40,14 +40,13 @@ const useStyles = makeStyles({
     },
     boxContent: {
         display: 'flex',
-        flexDirection: 'column',
-        width: 300
+        flexDirection: 'column'
     },
     textField: {
         margin: `${theme.spacing(3)} 0px`
     },
     linkForgot: {
-        paddingTop: theme.spacing(3)
+        margin: `${theme.spacing(3)} 0px`
     },
     iconVisibility: {
         cursor: 'pointer'
@@ -70,7 +69,7 @@ const LoginComponent = () => {
         onSubmit: values => dispatch(loginRequest(values))
     })
 
-    function handleClickShowPassword() {
+    const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
     }
 
@@ -155,6 +154,7 @@ const LoginComponent = () => {
                             }}
                         />
                     </Box>
+
                     <Button
                         id="button-submit"
                         type="submit"

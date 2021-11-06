@@ -13,6 +13,7 @@ import BugReportNameLogo from '../../assets/images/logo/NameBugReport.png'
 import BugReportLogo from '../../assets/images/logo/BugReportLogo.png'
 import BugReportIconLogo from '../../assets/images/logo/BugIcon.png'
 import LoginComponent from '../../containers/auth/login'
+import CreateComponent from '../../containers/auth/create'
 import { ArrowForward as ArrowForwardIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles({
@@ -46,27 +47,33 @@ const useStyles = makeStyles({
 const BugReportComponent = () => {
 
     const [dialogLogin, setDialogLogin] = useState(false)
+    const [dialogCreate, setDialogCreate] = useState(false)
 
     const classes = useStyles()
 
-    const changeDialogLogin = () => {
-        setDialogLogin(!dialogLogin)
-    }
 
     return <Box className={classes.boxScreen}>
         <Helmet>
             <title>Bug Report</title>
         </Helmet>
 
-        <Dialog open={dialogLogin} onClose={changeDialogLogin}>
+        <Dialog open={dialogLogin} onClose={() => setDialogLogin(!dialogLogin)}>
             <LoginComponent />
         </Dialog>
+
+        <Dialog
+            fullWidth={true}
+            open={dialogCreate}
+            onClose={() => setDialogCreate(!dialogCreate)}>
+            <CreateComponent />
+        </Dialog>
+
         <Box className={classes.boxContent}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <img width={80} src={BugReportLogo} alt="LOGO" />
                 <Button
                     size="small"
-                    onClick={changeDialogLogin}
+                    onClick={() => setDialogLogin(!dialogLogin)}
                     variant="outlined">Entrar</Button>
             </Box>
             <Grid pt={5} container={true}>
@@ -84,6 +91,7 @@ const BugReportComponent = () => {
                         <Box pt={4}>
                             <Button
                                 size="large"
+                                onClick={() => setDialogCreate(!dialogCreate)}
                                 endIcon={<ArrowForwardIcon />}
                                 variant="contained">Começar</Button>
                         </Box>
@@ -96,7 +104,7 @@ const BugReportComponent = () => {
                 </Hidden>
             </Grid>
         </Box>
-    </Box>
+    </Box >
 }
 
 export default connect()(BugReportComponent)

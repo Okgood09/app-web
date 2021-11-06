@@ -47,15 +47,14 @@ export const RouteWithSubRoutes = (route) => <Route
     exact={route.exact}
     render={props => {
 
-        console.log('PROPS & ROUTE', props, route)
-        if (route.private && !AuthService.isAuthenticated()) {
+        /* if (route.private && !AuthService.isAuthenticated()) {
             return <Redirect
                 to={{
                     pathname: '/',
                     state: { from: props.location }
                 }}
             />
-        }
+        } */
 
         if (route.redirect && AuthService.isAuthenticated()) {
             return <Redirect to={{
@@ -70,7 +69,7 @@ export const RouteWithSubRoutes = (route) => <Route
 
 export default function RoutesConfig({ history }) {
     return <ConnectedRouter history={history}>
-        <Suspense fallback={<LinearProgress sx={{ height: 8 }} />}>
+        <Suspense fallback={<LinearProgress sx={{ height: 10 }} />}>
             <Switch>
                 {
                     MAP_ROUTE.map((route, index) => <RouteWithSubRoutes key={index} {...route} />)

@@ -1,6 +1,11 @@
 import axiosInstance from './axios.service'
 import { LocalStorageService } from './localStorage.service'
 
+
+async function create(user) {
+    return await axiosInstance.post('/v1/admins', user)
+}
+
 async function authenticate(credentials) {
     const response = await axiosInstance.post('/v1/auth/login', credentials)
     const { access_token } = response.data
@@ -22,6 +27,7 @@ function logout() {
 }
 
 const exportRequests = {
+    create,
     authenticate,
     isAuthenticated,
     logout

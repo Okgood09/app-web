@@ -23,8 +23,13 @@ module.exports = {
         'quotes': ['error', 'single'],
         'semi': ['error', 'never'],
         'arrow-body-style': ['error', 'as-needed'],
-        'no-irregular-whitespace': 'error',
+        'no-irregular-whitespace': ['error'],
         'eqeqeq': ['error', 'always'],
-        'no-empty-function': 'error'
+        'no-empty-function': ['error'],
+        'curly': ['error', 'multi'],
+        'no-multiple-empty-lines': ['error', { max: 1 }],
+        'block-spacing': ['error'],
+        'no-duplicate-imports': ['error'],
+        'object-property-newline': ['error']
     }
 }

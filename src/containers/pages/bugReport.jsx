@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import Helmet from 'react-helmet'
 import backgroundImage from '../../assets/images/background.png'
 
 import {
-    Box, Button, Dialog, Grid, Hidden, Typography,
+    Box,
+    Button,
+    Dialog,
+    Grid,
+    Hidden,
+    Typography,
 } from '@mui/material'
+import { ArrowForward as ArrowForwardIcon } from '@material-ui/icons'
 import { makeStyles } from '@mui/styles'
 
 import { animation, theme } from '../../assets/styles/theme'
@@ -14,7 +20,9 @@ import BugReportLogo from '../../assets/images/logo/BugReportLogo.png'
 import BugReportIconLogo from '../../assets/images/logo/BugIcon.png'
 import LoginComponent from '../../containers/auth/login'
 import CreateComponent from '../../containers/auth/create'
-import { ArrowForward as ArrowForwardIcon } from '@material-ui/icons'
+import { changeDialogCreate } from '../../store/ducks/auth/actions'
+import SnackBarComponent from '../../components/layout/snackbar'
+import { enableSnackbar } from '../../store/ducks/layout/actions'
 
 const useStyles = makeStyles({
     ...animation,
@@ -47,15 +55,26 @@ const useStyles = makeStyles({
 const BugReportComponent = () => {
 
     const [dialogLogin, setDialogLogin] = useState(false)
-    const [dialogCreate, setDialogCreate] = useState(false)
+
+    const user = useSelector(state => state.auth)
+    const layout = useSelector((state) => state.layout)
+    const dispatch = useDispatch()
 
     const classes = useStyles()
 
+    const handleDialogCreate = () => dispatch(changeDialogCreate(!user.create.dialog))
 
     return <Box className={classes.boxScreen}>
         <Helmet>
             <title>Bug Report</title>
         </Helmet>
+
+        <SnackBarComponent
+            open={layout.snackbar.enableSnackbar}
+            severity={layout.snackbar.severity}
+            title={layout.snackbar.title}
+            message={layout.snackbar.message}
+            onClose={() => dispatch(enableSnackbar(!layout.snackbar.enableSnackbar))} />
 
         <Dialog open={dialogLogin} onClose={() => setDialogLogin(!dialogLogin)}>
             <LoginComponent />
@@ -63,8 +82,8 @@ const BugReportComponent = () => {
 
         <Dialog
             fullWidth={true}
-            open={dialogCreate}
-            onClose={() => setDialogCreate(!dialogCreate)}>
+            open={user.create.dialog}
+            onClose={handleDialogCreate}>
             <CreateComponent />
         </Dialog>
 
@@ -91,7 +110,7 @@ const BugReportComponent = () => {
                         <Box pt={4}>
                             <Button
                                 size="large"
-                                onClick={() => setDialogCreate(!dialogCreate)}
+                                onClick={handleDialogCreate}
                                 endIcon={<ArrowForwardIcon />}
                                 variant="contained">Começar</Button>
                         </Box>

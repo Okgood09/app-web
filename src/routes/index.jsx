@@ -15,14 +15,23 @@ const ListUser = lazy(() => import('../containers/users/list'))
 const Account = lazy(() => import('../containers/users/account'))
 
 const MAP_ROUTE = [
-    { path: '/', exact: true, component: BugReport, redirect: '/app' },
+    {
+        path: '/',
+        exact: true,
+        component: BugReport,
+        redirect: '/app'
+    },
     {
         path: '/app',
         private: true,
         strict: true,
         component: Layout,
         routes: [
-            { path: '/app', exact: true, redirect: '/app/home' },
+            {
+                path: '/app',
+                exact: true,
+                redirect: '/app/home'
+            },
             {
                 path: '/app/home',
                 exact: true,
@@ -56,12 +65,11 @@ export const RouteWithSubRoutes = (route) => <Route
             />
         } */
 
-        if (route.redirect && AuthService.isAuthenticated()) {
+        if (route.redirect && AuthService.isAuthenticated())
             return <Redirect to={{
                 pathname: `${route.redirect}`,
                 state: { from: props.location }
             }} />
-        }
 
         return <route.component {...props} exact={true} routes={route.routes} />
     }}

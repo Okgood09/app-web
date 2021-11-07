@@ -53,7 +53,10 @@ function AppBarComponent({ handleDrawerToggle }) {
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { md: 'none' } }}>
+                sx={{
+                    mr: 2,
+                    display: { md: 'none' }
+                }}>
                 <MenuIcon />
             </IconButton>
 
@@ -62,7 +65,12 @@ function AppBarComponent({ handleDrawerToggle }) {
                     <Typography className={classes.username} variant="caption">
                         Usuário
                     </Typography>
-                    <Avatar sx={{ width: 30, height: 30 }}><PersonIcon /></Avatar>
+                    <Avatar sx={{
+                        width: 30,
+                        height: 30
+                    }}>
+                        <PersonIcon />
+                    </Avatar>
                 </Box>
             </Box>
         </Toolbar>

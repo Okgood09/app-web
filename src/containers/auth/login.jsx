@@ -5,16 +5,13 @@ import { connect, useDispatch, useSelector } from 'react-redux'
 import Helmet from 'react-helmet'
 
 import {
-    Alert,
     Box,
     Button,
     InputAdornment,
     Link,
     Paper,
-    Snackbar,
     SvgIcon,
-    TextField,
-    Typography
+    TextField
 } from '@mui/material'
 import {
     Visibility as VisibilityIcon,
@@ -28,6 +25,7 @@ import { animation, theme } from '../../assets/styles/theme'
 import { loginRequest } from '../../store/ducks/auth/actions'
 import { ValidateAccess } from '../../store/application/validator/access.validator'
 import { enableSnackbar } from '../../store/ducks/layout/actions'
+import SnackBarComponent from '../../components/layout/snackbar'
 
 const useStyles = makeStyles({
     ...animation,
@@ -63,9 +61,11 @@ const LoginComponent = () => {
     const classes = useStyles()
 
     const formik = useFormik({
-        initialValues: { email: '', password: '' },
+        initialValues: {
+            email: '',
+            password: ''
+        },
         validationSchema: ValidateAccess,
-        validateOnMount: true,
         onSubmit: values => dispatch(loginRequest(values))
     })
 
@@ -78,25 +78,12 @@ const LoginComponent = () => {
             <title>Autenticação</title>
         </Helmet>
 
-        <Snackbar
-            id="snackbar-open"
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        <SnackBarComponent
             open={layout.snackbar.enableSnackbar}
-            autoHideDuration={5000}
-            onClose={() => dispatch(enableSnackbar(!layout.snackbar.enableSnackbar))}>
-            <Alert
-                id="alert-message"
-                variant="filled"
-                severity={layout.snackbar.severity}
-                sx={{ maxWidth: '100%' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography>{layout.snackbar.title}</Typography >
-                    <Typography variant="caption">
-                        {layout.snackbar.message}
-                    </Typography >
-                </Box>
-            </Alert>
-        </Snackbar>
+            severity={layout.snackbar.severity}
+            title={layout.snackbar.title}
+            message={layout.snackbar.message}
+            onClose={() => dispatch(enableSnackbar(!layout.snackbar.enableSnackbar))} />
 
         <Paper className={clsx(classes.fadeInContent, classes.boxPaper)}>
             <SvgIcon
@@ -166,7 +153,8 @@ const LoginComponent = () => {
                     </Button>
                 </form>
             </Box>
-            <Link className={classes.linkForgot} href="/authenticate">Esqueci minha senha</Link>
+            {/* TODO: adicionar lógica para recuperação de senha. */}
+            <Link className={classes.linkForgot} href="/">Esqueci minha senha</Link>
         </Paper>
     </Box>
 }

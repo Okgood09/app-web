@@ -1,12 +1,13 @@
-import { User } from '../../application/model/user.model'
+import { Admin } from '../../application/model/admin.model'
 import { AuthTypes } from './types'
 
 export const INITIAL_STATE = {
     create: {
-        user: new User(),
+        user: new Admin().toJSON(),
         loading: false,
         success: false,
-        error: false
+        error: false,
+        dialog: false
     },
     credentials: {
         email: '',
@@ -43,7 +44,8 @@ export default function reducer(state = INITIAL_STATE, action) {
                     ...state.create,
                     user,
                     loading: false,
-                    success: true
+                    success: true,
+                    dialog: false
                 }
             }
         }
@@ -57,6 +59,17 @@ export default function reducer(state = INITIAL_STATE, action) {
                     error: true
                 }
             }
+
+        case AuthTypes.CHANGE_DIALOG_CREATE: {
+            const { dialog: dialogCreate } = action.payload
+            return {
+                ...state,
+                create: {
+                    ...state.create,
+                    dialog: dialogCreate
+                }
+            }
+        }
 
         case AuthTypes.LOGIN_RESET:
             return {

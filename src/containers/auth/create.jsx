@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import Helmet from 'react-helmet'
 
 import {
+    Alert,
     Box,
     Button,
     Grid,
@@ -23,7 +24,7 @@ import { makeStyles } from '@mui/styles'
 
 import { ReactComponent as LogoBugReport } from '../../assets/images/logo/BugReportLogo.svg'
 import { animation, theme } from '../../assets/styles/theme'
-import { createRequest } from '../../store/ducks/auth/actions'
+import { changeDialogCreate, createRequest } from '../../store/ducks/auth/actions'
 import { ValidateCreateUser } from '../../store/application/validator/createUser.validate'
 
 const useStyles = makeStyles({
@@ -48,32 +49,24 @@ const useStyles = makeStyles({
 })
 
 const CreateComponent = () => {
+    const classes = useStyles()
+    const dispatch = useDispatch()
+    const auth = useSelector((state) => state.auth)
 
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-    const dispatch = useDispatch()
-    const user = useSelector((state) => state.auth.user)
-
-    const classes = useStyles()
-
     const formik = useFormik({
-        initialValues: { ...user?.toJSON() },
+        initialValues: { ...auth.create.user },
         validationSchema: ValidateCreateUser,
-        validateOnMount: true,
         onSubmit: values => {
-            console.log('VALUES', values)
-            return dispatch(createRequest(values))
+            dispatch(createRequest(values))
         }
     })
 
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword)
-    }
-
-    const handleClickShowConfirmPassword = () => {
-        setShowConfirmPassword(!showConfirmPassword)
-    }
+    const handleClickShowPassword = () => setShowPassword(!showPassword)
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword)
+    const handleDialogCreate = () => dispatch(changeDialogCreate(!auth.create.dialog))
 
     return <Box>
         <Helmet>
@@ -199,7 +192,26 @@ const CreateComponent = () => {
                         </Grid>
                     </Grid>
 
-                    <Box pt={1} display="flex" justifyContent="flex-end">
+                    <Box pt={2} pb={2}>
+                        <Alert severity="info">
+                            Ao se cadastrar você se torna administrador dos seus projetos.
+                        </Alert>
+                    </Box>
+
+                    <Box
+                        pt={1}
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center">
+                        <Button
+                            id="button-cancel"
+                            type="button"
+                            color="primary"
+                            onClick={handleDialogCreate}
+                            variant="outlined">
+                            CANCELAR
+                        </Button>
+
                         <Button
                             id="button-submit"
                             type="submit"

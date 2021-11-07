@@ -9,7 +9,9 @@ import {
     createSuccess
 } from './actions'
 import { AuthTypes } from './types'
-import { history } from '../../index'
+import store, { history } from '../../index'
+import { enableSnackbar } from '../layout/actions'
+import { SnackbarType } from '../layout/types'
 
 function* authenticate(action) {
     const { credentials } = action.payload
@@ -26,7 +28,12 @@ function* create(action) {
     const { user } = action.payload
     try {
         const response = yield AuthService.create(user)
-        yield put(createSuccess(response))
+        yield put(createSuccess(response.data))
+        store.dispatch(enableSnackbar(true,
+            SnackbarType.SUCCESS,
+            'CADASTRO REALIZADO COM SUCESSO!',
+            'Seja bem vindo! Você já pode fazer o login!'
+        ))
     } catch (error) {
         yield put(createFailure())
     }

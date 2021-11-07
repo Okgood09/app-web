@@ -1,4 +1,8 @@
-import { Access } from './access.model'
+import { Access } from './auth/access.model'
+
+export const UserType = {
+    ADMIN: 'admin'
+}
 
 export class User extends Access {
 
@@ -42,6 +46,14 @@ export class User extends Access {
         this._name = value
     }
 
+    get type() {
+        return this._type
+    }
+
+    set type(value) {
+        this._type = value
+    }
+
     fromJSON(json) {
         super.fromJSON(json)
 
@@ -50,7 +62,7 @@ export class User extends Access {
         if (json.updated_at !== undefined) this.updated_at = json.updated_at
         if (json.last_login !== undefined) this.last_login = json.last_login
         if (json.name !== undefined) this.name = json.name
-
+        if (json.type !== undefined) this.type = json.type
         return this
     }
 
@@ -61,7 +73,8 @@ export class User extends Access {
             created_at: this.created_at || undefined,
             updated_at: this.updated_at || undefined,
             last_login: this.last_login || undefined,
-            name: this.name || undefined
+            name: this.name || undefined,
+            type: this.type || undefined
         }
     }
 

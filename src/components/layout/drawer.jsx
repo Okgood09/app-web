@@ -69,7 +69,10 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
 
     return <Box
         component="nav"
-        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+        sx={{
+            width: { md: drawerWidth },
+            flexShrink: { md: 0 }
+        }}
         aria-label="mailbox folders">
         <Drawer
             container={container}
@@ -80,16 +83,28 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
                 keepMounted: true
             }}
             sx={{
-                display: { xs: 'block', md: 'none' },
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                display: {
+                    xs: 'block',
+                    md: 'none'
+                },
+                '& .MuiDrawer-paper': {
+                    boxSizing: 'border-box',
+                    width: drawerWidth
+                },
             }}>
             {drawer}
         </Drawer>
         <Drawer
             variant="permanent"
             sx={{
-                display: { xs: 'none', md: 'block' },
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                display: {
+                    xs: 'none',
+                    md: 'block'
+                },
+                '& .MuiDrawer-paper': {
+                    boxSizing: 'border-box',
+                    width: drawerWidth
+                },
             }}
             open={true}>
             {drawer}

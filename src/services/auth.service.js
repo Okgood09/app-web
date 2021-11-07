@@ -1,9 +1,11 @@
+import jwt from 'jsonwebtoken'
 import axiosInstance from './axios.service'
 import { LocalStorageService } from './localStorage.service'
-
+import { CryptoService } from './crypto.service'
 
 async function create(user) {
-    return await axiosInstance.post('/v1/admins', user)
+    const result = await axiosInstance.post('/v1/admins', user)
+    return result
 }
 
 async function authenticate(credentials) {
@@ -22,6 +24,16 @@ function isAuthenticated() {
     }
 }
 
+function userLogged() {
+    try {
+        const token = LocalStorageService.getItem('access_token')
+        const decode = jwt.decode(CryptoService.decrypt(token))
+        return decode.sub
+    } catch (err) {
+        return ''
+    }
+}
+
 function logout() {
     return localStorage.clear()
 }
@@ -30,6 +42,7 @@ const exportRequests = {
     create,
     authenticate,
     isAuthenticated,
+    userLogged,
     logout
 }
 

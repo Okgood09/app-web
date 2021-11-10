@@ -19,7 +19,7 @@ const MAP_ROUTE = [
         path: '/',
         exact: true,
         component: BugReport,
-        redirect: '/app'
+        redirect: '/app/home'
     },
     {
         path: '/app',
@@ -56,14 +56,13 @@ export const RouteWithSubRoutes = (route) => <Route
     exact={route.exact}
     render={props => {
 
-        /* if (route.private && !AuthService.isAuthenticated()) {
+        if (route.private && !AuthService.isAuthenticated())
             return <Redirect
                 to={{
                     pathname: '/',
                     state: { from: props.location }
                 }}
             />
-        } */
 
         if (route.redirect && AuthService.isAuthenticated())
             return <Redirect to={{

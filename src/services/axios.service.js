@@ -29,15 +29,14 @@ axiosInstance
     .use(undefined, (error) => {
         let title = ''
         let message = ''
+        if (error?.message === 'Network Error') {
+            title = 'FALHA NA CONEXÃO'
+            message = 'Verifique sua conexão e tente novamente.'
+        }
         switch (error.response.status) {
             case 400:
-                if (error.response.config.url === '/v1/auth/login') {
-                    title = 'Credenciais inválidas'
-                    message = 'Verifique os dados de acesso fornecidos.'
-                } else {
-                    title = 'DADOS INCORRETOS'
-                    message = 'Verifique os dados informados e tente novamente.'
-                }
+                title = 'DADOS INCORRETOS'
+                message = 'Verifique os dados informados e tente novamente.'
                 break
 
             case 401:
@@ -51,13 +50,8 @@ axiosInstance
                 break
 
             case 404:
-                if (error.response.config.url === '/v1/auth/login') {
-                    title = 'Credenciais inválidas'
-                    message = 'Verifique os dados de acesso fornecidos.'
-                } else {
-                    title = 'NÃO ENCONTRADO'
-                    message = 'Recurso solicitado encontra-se indisponível ou inexistente.'
-                }
+                title = 'NÃO ENCONTRADO'
+                message = 'Recurso solicitado encontra-se indisponível ou inexistente.'
                 break
 
             case 409:
@@ -90,6 +84,7 @@ axiosInstance
                 }
                 break
         }
+        console.log(title, message)
         if (title || message) store.dispatch(enableSnackbar(true, SnackbarType.ERROR, title, message))
         return Promise.reject(error.response.data)
     })

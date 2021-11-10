@@ -2,7 +2,8 @@ import { LayoutTypes } from './types'
 
 export const INITIAL_STATE = {
     drawer: {
-        enable: false
+        enable: false,
+        enableNotifications: false
     },
     snackbar: {
         enableSnackbar: false,
@@ -36,6 +37,17 @@ export default function reducer(state = INITIAL_STATE, action) {
                     severity,
                     title,
                     message
+                }
+            }
+        }
+
+        case LayoutTypes.ENABLE_DRAWER_NOTIFICATIONS: {
+            const { enableNotifications } = action.payload
+            return {
+                ...state,
+                drawer: {
+                    ...state.drawer,
+                    enableNotifications
                 }
             }
         }

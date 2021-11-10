@@ -5,7 +5,6 @@ import clsx from 'clsx'
 import Helmet from 'react-helmet'
 
 import {
-    Alert,
     Box,
     Button,
     Grid,
@@ -191,12 +190,6 @@ const CreateComponent = () => {
                             </Box>
                         </Grid>
                     </Grid>
-
-                    <Box pt={2} pb={2}>
-                        <Alert severity="info">
-                            Ao se cadastrar você se torna administrador dos seus projetos.
-                        </Alert>
-                    </Box>
 
                     <Box
                         pt={1}

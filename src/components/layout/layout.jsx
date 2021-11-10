@@ -7,18 +7,18 @@ import { makeStyles } from '@mui/styles'
 
 import { RouteWithSubRoutes } from '../../routes'
 import AppBar from './appBar'
-import Drawer from './drawer'
-import { enableDrawer, enableSnackbar } from '../../store/ducks/layout/actions'
+import Drawer from './drawerMenu'
+import { enableDrawer, enableDrawerNotifications, enableSnackbar } from '../../store/ducks/layout/actions'
 import FooterComponent from './footer'
 import { theme } from '../../assets/styles/theme'
 import SnackBarComponent from './snackbar'
-
-const CONTENT_MAX_WIDTH = 1126
+import { contentWidth } from '../../store/ducks/layout/types'
+import DrawerNotification from './drawerNotification'
 
 const useStyles = makeStyles({
     content: {
         position: 'relative',
-        maxWidth: CONTENT_MAX_WIDTH,
+        maxWidth: contentWidth,
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
@@ -37,10 +37,13 @@ const LayoutComponent = ({ routes }) => {
     const layout = useSelector((state) => state.layout)
 
     const handleDrawerToggle = () => dispatch(enableDrawer(!layout.drawer.enable))
+    const handleDrawerNotificationToggle = () => dispatch(enableDrawerNotifications(!layout.drawer.enableNotifications))
 
     return <Box sx={{ display: 'flex' }}>
 
-        <AppBar handleDrawerToggle={handleDrawerToggle} />
+        <AppBar
+            handleDrawerToggle={handleDrawerToggle}
+            handleEnableNotification={handleDrawerNotificationToggle} />
 
         <SnackBarComponent
             open={layout.snackbar.enableSnackbar}
@@ -52,6 +55,10 @@ const LayoutComponent = ({ routes }) => {
         <Drawer
             drawerEnable={layout.drawer.enable}
             handleDrawerToggle={handleDrawerToggle} />
+
+        <DrawerNotification
+            drawerEnable={layout.drawer.enableNotifications}
+            handleDrawerNotificationToggle={handleDrawerNotificationToggle} />
 
         <Box sx={{
             marginTop: '48px',

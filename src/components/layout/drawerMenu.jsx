@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
+const DrawerComponent = ({ drawerEnable, handleDrawerToggle }) => {
 
     const [selectedIndex, setSelectedIndex] = useState(1)
 
@@ -70,8 +70,8 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
     return <Box
         component="nav"
         sx={{
-            width: { md: drawerWidth },
-            flexShrink: { md: 0 }
+            width: { lg: drawerWidth },
+            flexShrink: { lg: 0 }
         }}
         aria-label="mailbox folders">
         <Drawer
@@ -85,7 +85,7 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
             sx={{
                 display: {
                     xs: 'block',
-                    md: 'none'
+                    lg: 'none'
                 },
                 '& .MuiDrawer-paper': {
                     boxSizing: 'border-box',
@@ -99,7 +99,7 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
             sx={{
                 display: {
                     xs: 'none',
-                    md: 'block'
+                    lg: 'block'
                 },
                 '& .MuiDrawer-paper': {
                     boxSizing: 'border-box',
@@ -111,3 +111,5 @@ export default function DrawerComponent({ drawerEnable, handleDrawerToggle }) {
         </Drawer>
     </Box>
 }
+
+export default DrawerComponent

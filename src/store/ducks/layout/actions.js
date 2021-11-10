@@ -11,3 +11,8 @@ export const enableSnackbar = (enableSnackbar, severity, title, message) =>
         title,
         message
     })
+
+export const enableDrawerNotifications = (enableNotifications) =>
+    action(LayoutTypes.ENABLE_DRAWER_NOTIFICATIONS, {
+        enableNotifications
+    })

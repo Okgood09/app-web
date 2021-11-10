@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { AppBar, Avatar, IconButton, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
 import {
     Menu as MenuIcon,
+    Notifications as NotificationsIcon,
     Person as PersonIcon,
     Face as FaceIcon,
     ExitToApp as ExitToAppIcon
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
     }
 })
 
-function AppBarComponent({ handleDrawerToggle }) {
+function AppBarComponent({ handleDrawerToggle, handleEnableNotification }) {
 
     const [anchorEl, setAnchorEl] = useState()
 
@@ -44,8 +45,8 @@ function AppBarComponent({ handleDrawerToggle }) {
     return <AppBar
         position="fixed"
         sx={{
-            width: { md: `calc(100% - ${drawerWidth}px)` },
-            ml: { md: `${drawerWidth}px` }
+            width: { lg: `calc(100% - ${drawerWidth}px)` },
+            ml: { lg: `${drawerWidth}px` }
         }}>
         <Toolbar variant="dense">
             <IconButton
@@ -55,21 +56,31 @@ function AppBarComponent({ handleDrawerToggle }) {
                 onClick={handleDrawerToggle}
                 sx={{
                     mr: 2,
-                    display: { md: 'none' }
+                    display: { lg: 'none' }
                 }}>
                 <MenuIcon />
             </IconButton>
 
             <Box className={classes.boxAppBar}>
-                <Box className={classes.boxUser} onClick={handleClick}>
-                    <Typography className={classes.username} variant="caption">
+                <Box className={classes.boxUser}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="icon-notification"
+                        edge="start"
+                        onClick={handleEnableNotification}
+                        sx={{
+                            mr: 1
+                        }}>
+                        <NotificationsIcon />
+                    </IconButton>
+                    <Typography onClick={handleClick} className={classes.username} variant="caption">
                         Usuário
                     </Typography>
                     <Avatar sx={{
-                        width: 30,
-                        height: 30
+                        width: 25,
+                        height: 25
                     }}>
-                        <PersonIcon />
+                        <PersonIcon onClick={handleClick} />
                     </Avatar>
                 </Box>
             </Box>

@@ -7,7 +7,7 @@ import { LinearProgress } from '@mui/material'
 import AuthService from '../services/auth.service'
 
 // Components lazy
-const Layout = lazy(() => import('../components/layout/layout'))
+const Layout = lazy(() => import('../containers/layout/layout'))
 const Home = lazy(() => import('../containers/home/home'))
 // Components imports
 const BugReport = lazy(() => import('../containers/pages/bugReport'))

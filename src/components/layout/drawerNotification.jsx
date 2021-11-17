@@ -1,14 +1,20 @@
 import React from 'react'
-import { makeStyles } from '@mui/styles'
-import { animation } from '../../assets/styles/theme'
-import { Box, Drawer, Typography } from '@mui/material'
-import { drawerWidth } from '../../store/ducks/layout/types'
 import clsx from 'clsx'
+
+import { makeStyles } from '@mui/styles'
+import { Notifications as NotificationsIcon } from '@material-ui/icons'
+import { Box, Drawer, Typography } from '@mui/material'
+
+import { animation, theme } from '../../assets/styles/theme'
+import { drawerWidth } from '../../store/ducks/layout/types'
 
 const useStyles = makeStyles({
     ...animation,
     boxDrawer: {
         width: drawerWidth,
+    },
+    notificationIcon: {
+        marginRight: theme.spacing(1)
     }
 })
 
@@ -21,7 +27,8 @@ const DrawerNotification = ({ drawerEnable, handleDrawerNotificationToggle }) =>
         onClose={handleDrawerNotificationToggle}>
         <Box className={clsx(classes.fadeInContent, classes.boxDrawer)}>
             <Box p={2} display="flex" alignItems="center" justifyContent="center">
-                <Typography variant="h6">Minhas notificações</Typography>
+                <NotificationsIcon className={classes.notificationIcon} />
+                <Typography variant="button">Minhas notificações</Typography>
             </Box>
         </Box>
     </Drawer>

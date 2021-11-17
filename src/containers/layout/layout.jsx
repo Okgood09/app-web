@@ -6,16 +6,20 @@ import { Box, LinearProgress } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import { RouteWithSubRoutes } from '../../routes'
-import AppBar from './appBar'
-import Drawer from './drawerMenu'
+import AppBar from '../../components/layout/appBar'
+import Drawer from '../../components/layout/drawerMenu'
 import { enableDrawer, enableDrawerNotifications, enableSnackbar } from '../../store/ducks/layout/actions'
-import FooterComponent from './footer'
+import FooterComponent from '../../components/layout/footer'
 import { theme } from '../../assets/styles/theme'
-import SnackBarComponent from './snackbar'
+import SnackBarComponent from '../../components/layout/snackbar'
 import { contentWidth } from '../../store/ducks/layout/types'
-import DrawerNotification from './drawerNotification'
+import DrawerNotification from '../../components/layout/drawerNotification'
 
 const useStyles = makeStyles({
+    boxContent: {
+        marginTop: '48px',
+        width: '100%'
+    },
     content: {
         position: 'relative',
         maxWidth: contentWidth,
@@ -60,10 +64,7 @@ const LayoutComponent = ({ routes }) => {
             drawerEnable={layout.drawer.enableNotifications}
             handleDrawerNotificationToggle={handleDrawerNotificationToggle} />
 
-        <Box sx={{
-            marginTop: '48px',
-            width: '100%'
-        }}>
+        <Box className={classes.boxContent}>
             <Suspense fallback={<LinearProgress color="secondary" sx={{ height: 10 }} />}>
                 <Box component="main" className={classes.content}>
                     <Switch>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+
 import { Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
-import { Home as HomeIcon } from '@material-ui/icons'
+import { Home as HomeIcon, PeopleAlt as PeopleAltIcon } from '@material-ui/icons'
 import { makeStyles } from '@mui/styles'
 
 import { history } from '../../store'
@@ -57,6 +58,9 @@ const DrawerComponent = ({ drawerEnable, handleDrawerToggle }) => {
                         handleListItemClick(e, 2)
                         history.push('/app/users')
                     }}>
+                    <ListItemIcon>
+                        <PeopleAltIcon />
+                    </ListItemIcon>
                     <ListItemText primary="Usuários" />
                 </ListItemButton>
             </List>
